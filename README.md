@@ -1,5 +1,6 @@
-[![Watch the video]()](https://github.com/orqvvcn/kdepanelapps/blob/main/k.mp4)
+# nms-web
 
+Upload product video for showing example of app
 
 
 You need to copy and paste to your desktop the default folder in /usr/share/plasma/desktoptheme/default and alter the tasks.svgz in /usr/share/plasma/desktoptheme/default/widgets/tasks.svgz with inkscape and make everything transparent.
