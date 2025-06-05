@@ -4,7 +4,7 @@
 https://github.com/user-attachments/assets/c9dc1f63-29a8-4c69-b824-57ce9c4b5f10
 
 
-You need to copy and paste to your desktop the default folder in /usr/share/plasma/desktoptheme/default and alter the tasks.svgz in /usr/share/plasma/desktoptheme/default/widgets/tasks.svgz with inkscape and make everything transparent.
+You need to copy and paste to your desktop the default folder in /usr/share/plasma/desktoptheme/default and alter the tasks.svgz in /usr/share/plasma/desktoptheme/default/widgets/tasks.svgz with inkscape and make everything transparent, or just use the file tasks.svgz
 
 the altered default folder needs to be placed in the local folder to not mess up the original folder /usr/local/share/plasma/desktoptheme you need to create the desktoptheme if there's not one. I use kio-admin to make edits inside the root folder.
 
