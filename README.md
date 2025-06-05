@@ -1,6 +1,7 @@
-# nms-web
+# underline with boucing apps for the breeze theme default panel (kde plasma)
 
-Upload product video for showing example of app
+
+https://github.com/user-attachments/assets/c9dc1f63-29a8-4c69-b824-57ce9c4b5f10
 
 
 You need to copy and paste to your desktop the default folder in /usr/share/plasma/desktoptheme/default and alter the tasks.svgz in /usr/share/plasma/desktoptheme/default/widgets/tasks.svgz with inkscape and make everything transparent.
