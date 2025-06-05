@@ -1,3 +1,7 @@
+[![Watch the video](https://raw.githubusercontent.com/username/repository/branch/path/to/thumbnail.jpg)](https://raw.githubusercontent.com/username/repository/branch/path/to/video.mp4)
+
+
+
 You need to copy and paste to your desktop the default folder in /usr/share/plasma/desktoptheme/default and alter the tasks.svgz in /usr/share/plasma/desktoptheme/default/widgets/tasks.svgz with inkscape and make everything transparent.
 
 the altered default folder needs to be placed in the local folder to not mess up the original folder /usr/local/share/plasma/desktoptheme you need to create the desktoptheme if there's not one. I use kio-admin to make edits inside the root folder.
