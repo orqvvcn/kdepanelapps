@@ -16,4 +16,4 @@ log out and log in and it should be working
 
 
 use the left right or top if you want your panel on the left right or top.
-if you have light mode theme use the light mode 
+if you have a light mode theme use the light mode 
