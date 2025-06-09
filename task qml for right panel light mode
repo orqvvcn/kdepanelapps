@@ -1,0 +1,113 @@
+Kirigami.Icon {
+    id: icon
+    anchors.fill: parent
+    active: false
+    enabled: true
+    source: model.decoration
+    z: 999
+    clip: false
+
+    transform: Translate {
+        id: iconTranslate
+        x: 0
+    }
+}
+
+Item {
+    anchors.fill: parent
+    z: 1000
+
+    Timer {
+        id: launchDelayTimer
+        interval: 350
+        repeat: false
+        onTriggered: {
+            TaskTools.activateTask(modelIndex(), model, Qt.NoModifier, task, Plasmoid, tasksRoot, effectWatcher.registered);
+        }
+    }
+
+    TapHandler {
+        acceptedButtons: Qt.LeftButton
+        gesturePolicy: TapHandler.ReleaseWithinBounds
+
+        onTapped: (eventPoint, button) => {
+            clickBounceAnim.restart();
+
+            if (!model.IsWindow) {
+                launchDelayTimer.start();
+            } else {
+                TaskTools.activateTask(modelIndex(), model, eventPoint.modifiers, task, Plasmoid, tasksRoot, effectWatcher.registered);
+            }
+
+            eventPoint.accepted = false;
+        }
+    }
+}
+
+SequentialAnimation {
+    id: clickBounceAnim
+    running: false
+    loops: 1
+
+    ScriptAction {
+        script: {
+            bounceSide.from = iconTranslate.x
+            bounceSide.to = 6   // Start by moving right (offset +6)
+        }
+    }
+
+    PropertyAnimation {
+        id: bounceSide
+        target: iconTranslate
+        property: "x"
+        duration: 100
+        easing.type: Easing.InOutCubic
+    }
+
+    PropertyAnimation {
+        target: iconTranslate
+        property: "x"
+        to: -10           // Move left (offset -10)
+        duration: 160
+        easing.type: Easing.OutCubic
+    }
+
+    PropertyAnimation {
+        target: iconTranslate
+        property: "x"
+        to: 0             // Back to center
+        duration: 160
+        easing.type: Easing.InCubic
+    }
+}
+
+
+Rectangle {
+    id: openBar
+    width: 2.5
+    height: model.IsWindow && model.IsActive ? 28 : 12
+    radius: width / 2
+    anchors.verticalCenter: icon.verticalCenter
+    anchors.right: icon.right
+    anchors.rightMargin: -1.5
+
+    color: model.IsWindow && model.IsActive
+        ? Qt.rgba(0, 0, 0, 0.9)
+        : Qt.rgba(0, 0, 0, 0.5)
+
+    visible: model.IsWindow && !model.IsLauncher
+
+    Behavior on height {
+        NumberAnimation {
+            duration: 200
+            easing.type: Easing.InOutQuad
+        }
+    }
+
+    Behavior on color {
+        ColorAnimation {
+            duration: 200
+            easing.type: Easing.InOutQuad
+        }
+    }
+}
