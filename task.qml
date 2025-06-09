@@ -127,7 +127,7 @@ Rectangle {
     anchors.bottomMargin: -1.5
 
     color: model.IsWindow && model.IsActive
-        ? Qt.rgba(1, 1, 1, 0.8)  // Qt.rgba(0.239, 0.682, 0.913, 1.0) 
+        ? Qt.rgba(1, 1, 1, 0.9)  // Qt.rgba(0.239, 0.682, 0.913, 1.0) 
         : Qt.rgba(1, 1, 1, 0.5)             // white with 50% opacity
 
     visible: model.IsWindow && !model.IsLauncher
