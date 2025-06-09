@@ -1,4 +1,4 @@
-# underline with boucing apps for the breeze theme default panel (kde plasma)
+# underline with boucy apps for the breeze theme default panel (kde plasma)
 
 
 https://github.com/user-attachments/assets/c9dc1f63-29a8-4c69-b824-57ce9c4b5f10
