@@ -81,7 +81,7 @@ SequentialAnimation {
     }
 }
 
-// White dot indicator on right side
+
 Rectangle {
     id: openBar
     width: 2.5
