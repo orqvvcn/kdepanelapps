@@ -13,3 +13,6 @@ you need to copy the plasmoid org.kde.plasma.taskmanager in /usr/share/plasma/pl
 then place the altered plasmoid org.kde.plasma.taskmanager in the local folder, /usr/local/share/plasma/plasmoids, you need to create the plasmoids folder if there's not one
 
 log out and log in and it should be working
+
+
+use the left right or top if you want your panel on the left right or top.
