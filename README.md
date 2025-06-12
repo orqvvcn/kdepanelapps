@@ -17,3 +17,5 @@ log out and log in and it should be working
 
 use the left right or top if you want your panel on the left right or top.
 if you have a light mode theme use the light mode 
+
+use the one with hover effect if you want animation when you pass the cursor over it 
