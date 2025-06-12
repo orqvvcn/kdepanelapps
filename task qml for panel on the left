@@ -85,15 +85,29 @@ SequentialAnimation {
 Rectangle {
     id: openBar
     width: 2.5
-    height: model.IsWindow && model.IsActive ? 28 : 12
+            height: {
+                if (model.IsWindow) {
+                    if (frame.isHovered)
+                        return model.IsActive ? 36 : 20; // was 32/16 → now 36/20
+                        else
+                            return model.IsActive ? 28 : 12;
+                }
+                return 0;
+            }
     radius: width / 2
     anchors.verticalCenter: icon.verticalCenter
     anchors.left: icon.left
-    anchors.leftMargin: -1.5
+    anchors.leftMargin: 2
 
-    color: model.IsWindow && model.IsActive
-        ? Qt.rgba(1, 1, 1, 0.9)
-        : Qt.rgba(1, 1, 1, 0.5)
+    color: {
+        if (model.IsWindow) {
+            if (model.IsActive)
+                return frame.isHovered ? Qt.rgba(1, 1, 1, 1.0) : Qt.rgba(1, 1, 1, 0.9);
+            else
+                return frame.isHovered ? Qt.rgba(1, 1, 1, 0.7) : Qt.rgba(1, 1, 1, 0.5);
+        }
+        return "transparent";
+    }
 
     visible: model.IsWindow && !model.IsLauncher
 

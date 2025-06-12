@@ -11,14 +11,7 @@ Kirigami.Icon {
         id: iconTranslate
         y: 0
     }
-
-   
-
 }
-
-
-
-
 
 Item {
     anchors.fill: parent
@@ -33,17 +26,9 @@ Item {
         TaskTools.activateTask(modelIndex(), model, Qt.NoModifier, task, Plasmoid, tasksRoot, effectWatcher.registered);
     }
 }
-
-
     TapHandler {
         acceptedButtons: Qt.LeftButton
         gesturePolicy: TapHandler.ReleaseWithinBounds // triggers when released inside
-        
-
-        
-
-
-
 
 onTapped: (eventPoint, button) => {
     // Bounce always on click
@@ -59,20 +44,8 @@ onTapped: (eventPoint, button) => {
 
     eventPoint.accepted = false;
 }
-
-
     }
-    
-    
-    
-    
-
 }
-
-
-
-
-
 
 SequentialAnimation {
     id: clickBounceAnim
@@ -111,24 +84,32 @@ SequentialAnimation {
     }
 } 
   
-        
-        
-          
-           
-        
-        
 Rectangle {
     id: openBar
-    width: model.IsWindow && model.IsActive ? 28 : 12
+            width: {
+                if (model.IsWindow) {
+                    if (frame.isHovered)
+                        return model.IsActive ? 36 : 20; // was 32/16 → now 36/20
+                        else
+                            return model.IsActive ? 28 : 12;
+                }
+                return 0;
+            }
     height: 2.5
     radius: height / 2
     anchors.horizontalCenter: icon.horizontalCenter
     anchors.bottom: icon.bottom
     anchors.bottomMargin: -1.5
 
-    color: model.IsWindow && model.IsActive
-        ? Qt.rgba(1, 1, 1, 0.9)  // Qt.rgba(0.239, 0.682, 0.913, 1.0) 
-        : Qt.rgba(1, 1, 1, 0.5)             // white with 50% opacity
+    color: {
+        if (model.IsWindow) {
+            if (model.IsActive)
+                return frame.isHovered ? Qt.rgba(1, 1, 1, 1.0) : Qt.rgba(1, 1, 1, 0.9);
+            else
+                return frame.isHovered ? Qt.rgba(1, 1, 1, 0.7) : Qt.rgba(1, 1, 1, 0.5);
+        }
+        return "transparent";
+    }
 
     visible: model.IsWindow && !model.IsLauncher
 
