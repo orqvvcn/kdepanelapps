@@ -1,0 +1,214 @@
+
+
+Item {
+    id: iconContainer
+    anchors.centerIn: parent
+    width: parent.height   // or any ratio
+    height: parent.height 
+    z: 999
+
+    HoverHandler {
+        id: hoverHandler
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+    }
+
+    Kirigami.Icon {
+        id: icon
+        anchors.centerIn: parent
+        active: false
+        enabled: true
+        source: model.decoration
+        z: 999
+        clip: false
+        width: parent.width
+        height: parent.height
+
+
+        transform: [
+            Translate {
+                id: iconTranslate
+                y: 0
+            },
+            Scale {
+                id: iconScale
+                xScale: 1
+                yScale: 1
+               	origin.x: icon.width / 2
+		origin.y: icon.height / 2
+
+            }
+        ]
+
+        states: [
+            State {
+                name: "hovered"
+                when: hoverHandler.hovered
+		PropertyChanges { target: iconTranslate; y: -4 }
+                PropertyChanges { target: iconScale; xScale: 1.1; yScale: 1.1 }
+            }
+        ]
+
+        transitions: Transition {
+            from: ""; to: "hovered"
+            reversible: true
+            NumberAnimation { properties: "y,xScale,yScale"; duration: 180; easing.type: Easing.InOutQuad }
+        }
+
+        Behavior on transform {
+            enabled: hoverHandler.hovered
+            NumberAnimation { duration: 150; easing.type: Easing.InOutQuad }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+Item {
+    anchors.fill: parent
+    z: 1000   // Ensure it's on top
+    
+    
+    Timer {
+    id: launchDelayTimer
+    interval: 350
+    repeat: false
+    onTriggered: {
+        TaskTools.activateTask(modelIndex(), model, Qt.NoModifier, task, Plasmoid, tasksRoot, effectWatcher.registered);
+    }
+}
+
+
+    TapHandler {
+        acceptedButtons: Qt.LeftButton
+        gesturePolicy: TapHandler.ReleaseWithinBounds // triggers when released inside
+        
+
+        
+
+
+
+
+onTapped: (eventPoint, button) => {
+    // Bounce always on click
+    clickBounceAnim.restart();
+
+    if (!model.IsWindow) {
+        // App is closed: bounce first, delay launch
+        launchDelayTimer.start();
+    } else {
+        // App is open: activate normally
+        TaskTools.activateTask(modelIndex(), model, eventPoint.modifiers, task, Plasmoid, tasksRoot, effectWatcher.registered);
+    }
+
+    eventPoint.accepted = false;
+}
+
+
+    }
+    
+    
+    
+    
+
+}
+
+
+
+
+
+SequentialAnimation {
+    id: clickBounceAnim
+    running: false
+    loops: 1
+
+    ScriptAction {
+        script: {
+            // Temporarily disable hover animation to avoid conflict
+            hoverHandler.enabled = false;
+            bounceDown.from = iconTranslate.y;
+            bounceDown.to = 6;
+        }
+    }
+
+    PropertyAnimation {
+        id: bounceDown
+        target: iconTranslate
+        property: "y"
+        duration: 100
+        easing.type: Easing.InOutCubic
+    }
+
+    PropertyAnimation {
+        target: iconTranslate
+        property: "y"
+        to: -10
+        duration: 160
+        easing.type: Easing.OutCubic
+    }
+
+    PropertyAnimation {
+        target: iconTranslate
+        property: "y"
+        to: 0
+        duration: 160
+        easing.type: Easing.InCubic
+    }
+
+    ScriptAction {
+        script: {
+            // Re-enable hover after bounce finishes
+            hoverHandler.enabled = true;
+        }
+    }
+}
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            // Here, add the white transparent dot rectangle:
+Rectangle {
+    id: openBar
+    width: model.IsWindow && model.IsActive ? 28 : 12
+    height: 2.5
+    radius: height / 2
+    anchors.horizontalCenter: iconContainer.horizontalCenter
+    anchors.bottom: iconContainer.bottom
+    anchors.bottomMargin: -1.5 // Adjust to visually sit just below the icon
+    z: 998
+
+    color: model.IsWindow && model.IsActive
+        ? Qt.rgba(0, 0, 0, 0.9)
+        : Qt.rgba(0, 0, 0, 0.5)
+
+    visible: model.IsWindow && !model.IsLauncher
+
+    Behavior on width {
+        NumberAnimation {
+            duration: 200
+            easing.type: Easing.InOutQuad
+        }
+    }
+
+    Behavior on color {
+        ColorAnimation {
+            duration: 200
+            easing.type: Easing.InOutQuad
+        }
+    }
+}
+
