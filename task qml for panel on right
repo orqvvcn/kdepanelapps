@@ -88,7 +88,7 @@ Rectangle {
             height: {
                 if (model.IsWindow) {
                     if (frame.isHovered)
-                        return model.IsActive ? 36 : 20; // was 32/16 → now 36/20
+                        return model.IsActive ? 36 : 20;
                         else
                             return model.IsActive ? 28 : 12;
                 }
