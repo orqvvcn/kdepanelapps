@@ -44,7 +44,7 @@ Item {
                 name: "hovered"
                 when: hoverHandler.hovered
 		PropertyChanges { target: iconTranslate; y: -4 }
-                PropertyChanges { target: iconScale; xScale: 1.1; yScale: 1.1 }
+                PropertyChanges { target: iconScale; xScale: 1.05; yScale: 1.05 }
             }
         ]
 
